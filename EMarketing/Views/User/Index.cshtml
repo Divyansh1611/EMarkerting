@@ -1,0 +1,51 @@
+﻿@model PagedList.IPagedList<EMarketing.Models.tbl_category>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Category List";
+}
+
+<!-- Custom CSS to resize images -->
+<style>
+    .card-img-top {
+        width: 100%;
+        height: 200px; /* Set a fixed height */
+        object-fit: cover; /* Crop and center images within the defined height */
+    }
+</style>
+
+<div class="container">
+    <div class="row align-items-stretch">
+        @foreach (var category in Model)
+        {
+            <div class="col-md-4 mb-4 d-flex">
+                <div class="card flex-fill">
+                    <img src="@Url.Content(category.cat_image)" class="card-img-top" alt="Category Image">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@category.cat_name</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="@Url.Action("Ads","User", new {id = category.cat_id})" class="btn btn-primary mt-auto">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Pagination Controls -->
+<div class="d-flex justify-content-center mt-4">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), new PagedListRenderOptions
+    {
+        DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+        DisplayLinkToLastPage = PagedListDisplayMode.Always,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,
+        DisplayLinkToIndividualPages = true,
+        UlElementClasses = new[] { "pagination", "justify-content-center" }, // Bootstrap pagination classes
+        LiElementClasses = new[] { "page-item" }, // Apply to each <li> item
+        LinkToFirstPageFormat = "<< First", // Text for First link
+        LinkToLastPageFormat = "Last >>",   // Text for Last link
+        LinkToPreviousPageFormat = "<",     // Text for Previous link
+        LinkToNextPageFormat = ">",         // Text for Next link
+    })
+</div>

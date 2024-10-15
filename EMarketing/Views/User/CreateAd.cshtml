@@ -1,0 +1,78 @@
+﻿@model EMarketing.Models.tbl_product
+
+@{
+    ViewBag.Title = "CreateAd";
+}
+
+<h2>CreateAd</h2>
+
+
+@using (Html.BeginForm("CreateAd", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Sign Up</h4>
+    <hr />
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <!-- Product Name-->
+    <div class="form-group">
+        @Html.Label("Product Name", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.pro_name, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.pro_name, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Description-->
+    <div class="form-group">
+        @Html.Label("Description", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.pro_desc, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.pro_desc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Price-->
+    <div class="form-group">
+        @Html.Label("Price", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.pro_price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.pro_price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <br />
+
+    <!-- Image-->
+    <div class="form-group">
+        @Html.Label("Image", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="imgfile" id="imgfile" class="form-control" required="required" />
+        </div>
+    </div>
+    <br />
+
+    <!-- Drop Downlist-->
+    <div class="form-group">
+        @Html.Label("Categories", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.pro_fk_cat, ViewBag.categorylist as SelectList, "--select--")
+        </div>
+    </div>
+
+
+    <br />
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+}
+
+<div class="form-group">
+    <p style="color:red;">@ViewBag.error</p>
+</div>

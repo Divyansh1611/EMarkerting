@@ -1,0 +1,68 @@
+﻿@model PagedList.IPagedList<EMarketing.Models.tbl_category>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Category List";
+}
+
+
+
+
+
+
+
+<h2>Category List</h2>
+
+<!-- Category Table -->
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Category Image</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.cat_id</td>
+                <td>@category.cat_name</td>
+                <td><img src="@Url.Content(category.cat_image)" alt="Category Image" width="50" height="50" /></td>
+                <td>@(category.cat_status == 1 ? "Active" : "Inactive")</td>
+                <td>
+                    @* Add buttons or links for edit, details, and delete *@
+                    <a href="@Url.Action("Edit", new { id = category.cat_id })" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="@Url.Action("Details", new { id = category.cat_id })" class="btn btn-info btn-sm">Details</a>
+                    <a href="@Url.Action("Delete", new { id = category.cat_id })" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Pagination Controls -->
+@{
+    var options = new PagedListRenderOptions
+    {
+        DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+        DisplayLinkToLastPage = PagedListDisplayMode.Always,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,
+        DisplayLinkToIndividualPages = true,
+        // Remove unsupported properties
+        UlElementClasses = new[] { "pagination", "justify-content-center" },
+        LiElementClasses = new[] { "page-item" } // Optional: only include if supported by your version
+    };
+}
+
+<!-- Pagination Controls -->
+<div class="text-center">
+    Page @(Model.PageCount < Model.PageNumber ? 1 : Model.PageNumber) of @Model.PageCount
+    <br />
+    <div class="d-flex justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("ViewCategory", new { page }), options)
+    </div>
+</div>

@@ -1,0 +1,43 @@
+﻿@model EMarketing.Models.Addviewmodel
+
+@{
+    ViewBag.Title = "ViewAd";
+}
+
+<div class="row">
+
+    <div class="col-lg-12 col-md-12">
+        <img src="https://di-uploads-pod2.dealerinspire.com/countrychevybuickgmc/uploads/2020/10/CCBGMC_SR_1400x150-1.jpg" class="img img-responsive"  style="width : 100%; padding: 0 0 0 0"/>
+    </div>
+</div>
+
+<div class="col-lg-8 col-md-8">
+    <div>
+        <h1>@Model.pro_name <small>AD-ID : @Model.pro_id</small></h1>
+    </div>
+
+    <img src="@Url.Content(Model.pro_image)" alt="No idea" style="width: 500px; height:450px;" />
+
+    <div>
+        <h2>Description</h2>
+        <p>@Model.pro_desc</p>
+    </div>
+
+    <div>
+        <h3>Price : $@Model.pro_price</h3>
+    </div>
+
+    <div>
+        <h3>Category : $@Model.cat_name</h3>
+    </div>
+
+    <div>
+        <h3>Posted by : @Model.u_name <img src="@Url.Content(Model.u_image)" style="width:40px; height:40px;" /></h3>
+    </div>
+
+    <div>
+        <h3>Contact : @Model.u_contact</h3>
+    </div>
+
+
+</div>
